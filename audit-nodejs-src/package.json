@@ -1,0 +1,72 @@
+{
+    "name": "audit_models",
+    "version": "1.0.0",
+    "description": "审计小程序",
+    "main": "main.js",
+    "scripts": {
+        "vue:build": "cd ../audit-frontend-src && npm run build",
+        "dev": "node server.js",
+        "start": "npx electron .",
+        "dist:win": "npm run vue:build && electron-builder --windows",
+        "dist:macx64": "npm run vue:build && electron-builder --mac --x64",
+        "dist:macarm": "npm run vue:build && electron-builder --mac --arm64"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cheerio": "^1.0.0",
+        "child_process": "^1.0.2",
+        "express": "^4.18.2",
+        "path": "^0.12.7",
+        "puppeteer": "^24.6.1",
+        "random-useragent": "^0.5.0",
+        "sqlite": "^5.1.1",
+        "sqlite3": "^5.1.7",
+        "xlsx": "*"
+    },
+    "devDependencies": {
+        "electron": "^26.2.3",
+        "electron-builder": "^23.6.0"
+    },
+    "build": {
+        "appId": "com.example.lib-sj",
+        "productName": "审计小程序",
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "./icon.ico"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "artifactName": "auditModels_installer.${ext}"
+        },
+        "mac": {
+            "target": [
+                "dmg",
+                "pkg"
+            ],
+            "category": "public.app-category.productivity"
+        },
+        "files": [
+            "main.js",
+            "server.js",
+            "services/*",
+            "services/**/*",
+            "assets/*",
+            "favicon.ico",
+            "index.html",
+            "log.html",
+            {
+                "from": "../audit-frontend-src/dist",
+                "filter": [
+                    "**/*.js",
+                    "**/*.css",
+                    "*.html",
+                    "*.ico"
+                ]
+            }
+        ]
+    }
+}
